@@ -36,7 +36,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
      * @dataProvider dataTransformsMethods
      *
      * @param string $method         Method of Axe to use.
-     * @param array  $args           Method options.
+     * @param array  $args           Method definition.
      * @param string $expectedResult Expected result.
      */
     public function testTransformsMethods($method, $args, $expectedResult)
@@ -76,6 +76,13 @@ class AxeTest extends PHPUnit_Framework_TestCase
             // HTML: Force void to allow contents (why?).
             100500 =>
                 [ 'html', [ [ 'br', 'hello' ] ], '<br>hello</br>' ],
+            // HTML: Avoid reference copy.
+            100600 =>
+                [
+                    'html',
+                    [ [ 'div', [ 'span#id.class' ], [ null ] ] ],
+                    '<div><span id="id" class="class"></span><div></div></div>'
+                ],
             // XML: Literal String.
             200000 =>
                 [ 'xml', [ 'Hello World' ], 'Hello World' ],
@@ -100,6 +107,13 @@ class AxeTest extends PHPUnit_Framework_TestCase
                 [ 'xml', [ [ 'div', 'hello' ] ], '<div>hello</div>' ],
             [ 'xml', [ [ 'div#hello', 'world' ] ], '<div id="hello">world</div>' ],
             [ 'xml', [ [ 'div#hello', 'world', [ 'br' ] ] ], '<div id="hello">world<br /></div>' ],
+            // XML: Avoid reference copy.
+            200600 =>
+                [
+                    'xml',
+                    [ [ 'div', [ 'span#id.class' ], [ null ] ] ],
+                    '<div><span id="id" class="class" /><node /></div>'
+                ],
         ];
     }
 }

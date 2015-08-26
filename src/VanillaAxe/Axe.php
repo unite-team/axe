@@ -81,6 +81,7 @@ class Axe
                 }
 
                 // The first element value is the tag description.
+                unset ( $tagName, $tagId, $tagClass );
                 static::parseTag(array_shift($element), $tagName, $tagId, $tagClass);
 
                 // If tag name is empty, so use tag null option.
