@@ -83,6 +83,16 @@ class AxeTest extends PHPUnit_Framework_TestCase
                     [ [ 'div', [ 'span#id.class' ], [ null ] ] ],
                     '<div><span id="id" class="class"></span><div></div></div>'
                 ],
+            // HTML: Simple values.
+            100700 =>
+                [ 'html', [ [ 'div', 1 ] ], '<div>1</div>' ],
+            [ 'html', [ [ 'div', 1.5 ] ], '<div>1.5</div>' ],
+            [ 'html', [ [ 'div', true ] ], '<div>1</div>' ],
+            [ 'html', [ [ 'div', true, true ] ], '<div>11</div>' ],
+            [ 'html', [ [ 'div', true, false, true ] ], '<div>11</div>' ],
+            [ 'html', [ [ 'div', false ] ], '<div></div>' ],
+            [ 'html', [ [ 'div', null ] ], '<div></div>' ],
+            [ 'html', [ [ 'div', '' ] ], '<div></div>' ],
             // XML: Literal String.
             200000 =>
                 [ 'xml', [ 'Hello World' ], 'Hello World' ],
@@ -114,6 +124,16 @@ class AxeTest extends PHPUnit_Framework_TestCase
                     [ [ 'div', [ 'span#id.class' ], [ null ] ] ],
                     '<div><span id="id" class="class" /><node /></div>'
                 ],
+            // XML: Simple values.
+            200700 =>
+                [ 'xml', [ [ 'node', 1 ] ], '<node>1</node>' ],
+            [ 'xml', [ [ 'node', 1.5 ] ], '<node>1.5</node>' ],
+            [ 'xml', [ [ 'node', true ] ], '<node>1</node>' ],
+            [ 'xml', [ [ 'node', true, true ] ], '<node>11</node>' ],
+            [ 'xml', [ [ 'node', true, false, true ] ], '<node>11</node>' ],
+            [ 'xml', [ [ 'node', false ] ], '<node />' ],
+            [ 'xml', [ [ 'node', null ] ], '<node />' ],
+            [ 'xml', [ [ 'node', '' ] ], '<node />' ],
         ];
     }
 }

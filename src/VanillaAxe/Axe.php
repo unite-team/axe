@@ -68,8 +68,9 @@ class Axe
         $result = null;
 
         foreach ($elements as $element) {
-            // Consider a string as literal result.
-            if (is_string($element)) {
+            // Consider a scalar as literal result.
+            // Note: boolean too is a scalar value, true will turns 1 and false will turns empty.
+            if (is_scalar($element)) {
                 $result .= $element;
             }
 
@@ -116,8 +117,11 @@ class Axe
 
                 // Rebuild additional contents.
                 if (count($element)) {
-                    $result .= '>' . static::transform($element, $options) . "</{$tagName}>";
-                    continue;
+                    $transformValue = static::transform($element, $options);
+                    if ($transformValue) {
+                        $result .= ">{$transformValue}</{$tagName}>";
+                        continue;
+                    }
                 }
 
                 // If it is a void element, close element.
