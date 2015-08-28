@@ -4,6 +4,10 @@ namespace Rentalhost\VanillaAxe;
 
 use PHPUnit_Framework_TestCase;
 
+/**
+ * Class AxeTest
+ * @package Rentalhost\VanillaAxe
+ */
 class AxeTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -47,6 +51,9 @@ class AxeTest extends PHPUnit_Framework_TestCase
         static::assertEquals($expectedResult, call_user_func_array([ Axe::class, $method ], $args));
     }
 
+    /**
+     * @return array
+     */
     public function dataTransformsMethods()
     {
         /** @noinspection CheckEmptyScriptTag */

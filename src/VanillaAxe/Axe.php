@@ -2,6 +2,10 @@
 
 namespace Rentalhost\VanillaAxe;
 
+/**
+ * Class Axe
+ * @package Rentalhost\VanillaAxe
+ */
 class Axe
 {
     /**
@@ -24,7 +28,7 @@ class Axe
         'param',
         'source',
         'track',
-        'wbr'
+        'wbr',
     ];
 
     /**
@@ -39,7 +43,7 @@ class Axe
         return static::transform(func_get_args(), static::normalizeOptions([
             'voidElements' => static::$HTML_VOID_ELEMENTS,
             'closeElements' => false,
-            'tagNull' => 'div'
+            'tagNull' => 'div',
         ]));
     }
 
@@ -125,7 +129,7 @@ class Axe
                 }
 
                 // If it is a void element, close element.
-                if (in_array($tagName, $options['voidElements'])) {
+                if (in_array($tagName, $options['voidElements'], true)) {
                     $result .= ' />';
                     continue;
                 }
@@ -156,7 +160,7 @@ class Axe
         return array_replace([
             'voidElements' => [ ],
             'closeElements' => true,
-            'tagNull' => 'node'
+            'tagNull' => 'node',
         ], $options ?: [ ]);
     }
 
@@ -170,7 +174,7 @@ class Axe
      *
      * @return array
      */
-    private static function parseTag($description, &$name = null, &$id = null, &$classes = null)
+    private static function parseTag($description, &$name, &$id, &$classes)
     {
         // Capture tag name.
         if (preg_match('/^[a-z0-9][a-z0-9-:]*/i', $description, $descriptionMatch)) {
@@ -184,7 +188,7 @@ class Axe
 
         // Capture tag classes.
         if (preg_match_all('/\.([\w\d-]+)/', $description, $descriptionMatch)) {
-            $classes = join(' ', $descriptionMatch[1]);
+            $classes = implode(' ', $descriptionMatch[1]);
         }
     }
 
