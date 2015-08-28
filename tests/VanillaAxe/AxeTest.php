@@ -20,8 +20,11 @@ class AxeTest extends PHPUnit_Framework_TestCase
         static::assertEquals('<div></div><br />', Axe::html([ 'div' ], [ 'br' ]));
 
         static::assertEquals('hello', Axe::xml('hello'));
+        /** @noinspection CheckEmptyScriptTag */
         static::assertEquals('<div />', Axe::xml([ 'div' ]));
+        /** @noinspection CheckEmptyScriptTag */
         static::assertEquals('<div />hello', Axe::xml([ 'div' ], 'hello'));
+        /** @noinspection CheckEmptyScriptTag */
         static::assertEquals('<div /><br />', Axe::xml([ 'div' ], [ 'br' ]));
     }
 
@@ -46,6 +49,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
 
     public function dataTransformsMethods()
     {
+        /** @noinspection CheckEmptyScriptTag */
         return [
             // HTML: Literal String.
             100000 =>
@@ -81,7 +85,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
                 [
                     'html',
                     [ [ 'div', [ 'span#id.class' ], [ null ] ] ],
-                    '<div><span id="id" class="class"></span><div></div></div>'
+                    '<div><span id="id" class="class"></span><div></div></div>',
                 ],
             // HTML: Simple values.
             100700 =>
@@ -122,7 +126,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
                 [
                     'xml',
                     [ [ 'div', [ 'span#id.class' ], [ null ] ] ],
-                    '<div><span id="id" class="class" /><node /></div>'
+                    '<div><span id="id" class="class" /><node /></div>',
                 ],
             // XML: Simple values.
             200700 =>
