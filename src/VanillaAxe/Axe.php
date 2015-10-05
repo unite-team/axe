@@ -115,8 +115,9 @@ class Axe
                 $result .= "<{$tagName}";
 
                 // Fill tag attributes.
-                foreach ($tagAttributes as $attributeKey => $attributeValue) {
-                    $result .= ' ' . htmlspecialchars($attributeKey) . '="' . htmlspecialchars($attributeValue) . '"';
+                $tagAttributesString = static::attributes($tagAttributes);
+                if ($tagAttributesString) {
+                    $result .= ' ' . $tagAttributesString;
                 }
 
                 // Rebuild additional contents.
@@ -145,6 +146,24 @@ class Axe
         }
 
         return $result;
+    }
+
+    /**
+     * Returns a formatted attributes structure.
+     *
+     * @param array $attributes Attributes to format.
+     *
+     * @return string
+     */
+    public static function attributes($attributes)
+    {
+        $attributesResult = [ ];
+
+        foreach ($attributes as $attributeKey => $attributeValue) {
+            $attributesResult[] = htmlspecialchars($attributeKey) . '="' . htmlspecialchars($attributeValue) . '"';
+        }
+
+        return implode(' ', $attributesResult);
     }
 
     /**

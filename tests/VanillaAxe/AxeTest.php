@@ -147,4 +147,32 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'xml', [ [ 'node', '' ] ], '<node />' ],
         ];
     }
+
+    /**
+     * Test attributes method.
+     * @covers       Rentalhost\VanillaAxe\Axe::attributes
+     * @dataProvider dataAttributesMethod
+     *
+     * @param array  $attributes     Attributes.
+     * @param string $expectedResult Expected result.
+     */
+    public function testAttributesMethod($attributes, $expectedResult)
+    {
+        static::assertSame($expectedResult, Axe::attributes($attributes));
+    }
+
+    /**
+     * @return array
+     */
+    public function dataAttributesMethod()
+    {
+        return [
+            [ [ ], '' ],
+            [ [ 1 ], '0="1"' ],
+            [ [ 1, 2, 3 ], '0="1" 1="2" 2="3"' ],
+            [ [ 'a' => 'b' ], 'a="b"' ],
+            [ [ 'data-name' => 'quote"value' ], 'data-name="quote&quot;value"' ],
+            [ [ 'a' => 'b', 'c' => 'd' ], 'a="b" c="d"' ],
+        ];
+    }
 }
