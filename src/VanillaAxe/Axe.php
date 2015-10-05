@@ -151,11 +151,14 @@ class Axe
      * Returns an option array normalized.
      *
      * @param  array $options Options to overwrite.
-     * @param  array $options ["voidElements"] List all void elements.
+     *
+     * @internal param array   $options["voidElements"]  List all void elements.
+     * @internal param boolean $options["closeElements"] If should to close void elements.
+     * @internal param string  $options["tagNull"]       Tag name where it isn't defined.
      *
      * @return array
      */
-    private static function normalizeOptions(array $options = null)
+    private static function normalizeOptions($options = null)
     {
         return array_replace([
             'voidElements' => [ ],
