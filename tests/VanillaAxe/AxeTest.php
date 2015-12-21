@@ -104,6 +104,9 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'html', [ [ 'div', false ] ], '<div></div>' ],
             [ 'html', [ [ 'div', null ] ], '<div></div>' ],
             [ 'html', [ [ 'div', '' ] ], '<div></div>' ],
+            // HTML: Unescaped values.
+            100800 =>
+                [ 'html', [ [ 'div', '<br />' ] ], '<div><br /></div>' ],
             // XML: Literal String.
             200000 =>
                 [ 'xml', [ 'Hello World' ], 'Hello World' ],
@@ -145,6 +148,9 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'xml', [ [ 'node', false ] ], '<node />' ],
             [ 'xml', [ [ 'node', null ] ], '<node />' ],
             [ 'xml', [ [ 'node', '' ] ], '<node />' ],
+            // XML: Unescaped values.
+            200800 =>
+                [ 'html', [ [ 'div', '<br />' ] ], '<div><br /></div>' ],
         ];
     }
 
