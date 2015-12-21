@@ -31,6 +31,7 @@ class Axe
         'wbr',
     ];
 
+    /** @noinspection PhpDocSignatureInspection */
     /**
      * Transforms an array into HTML.
      *
@@ -38,15 +39,16 @@ class Axe
      *
      * @return string
      */
-    public static function html()
+    public static function html(/** ...$args */)
     {
         return static::transform(func_get_args(), static::normalizeOptions([
-            'voidElements' => static::$HTML_VOID_ELEMENTS,
+            'voidElements'  => static::$HTML_VOID_ELEMENTS,
             'closeElements' => false,
-            'tagNull' => 'div',
+            'tagNull'       => 'div',
         ]));
     }
 
+    /** @noinspection PhpDocSignatureInspection */
     /**
      * Transforms an array into XML.
      *
@@ -54,7 +56,7 @@ class Axe
      *
      * @return string
      */
-    public static function xml()
+    public static function xml(/** ...$args */)
     {
         return static::transform(func_get_args(), static::normalizeOptions());
     }
@@ -71,6 +73,7 @@ class Axe
     {
         $result = null;
 
+        /** @var mixed[]|string $element */
         foreach ($elements as $element) {
             // Consider a scalar as literal result.
             // Note: boolean too is a scalar value, true will turns 1 and false will turns empty.
@@ -90,7 +93,7 @@ class Axe
                 static::parseTag(array_shift($element), $tagName, $tagId, $tagClass);
 
                 // If tag name is empty, so use tag null option.
-                $tagName = $tagName ?: $options['tagNull'];
+                $tagName       = $tagName ?: $options['tagNull'];
                 $tagAttributes = [ ];
 
                 // Add description attributes.
@@ -180,9 +183,9 @@ class Axe
     private static function normalizeOptions($options = null)
     {
         return array_replace([
-            'voidElements' => [ ],
+            'voidElements'  => [ ],
             'closeElements' => true,
-            'tagNull' => 'node',
+            'tagNull'       => 'node',
         ], $options ?: [ ]);
     }
 
