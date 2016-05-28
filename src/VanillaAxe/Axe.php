@@ -31,6 +31,24 @@ class Axe
         'wbr',
     ];
 
+    /**
+     * Returns a formatted attributes structure.
+     *
+     * @param array $attributes Attributes to format.
+     *
+     * @return string
+     */
+    public static function attributes($attributes)
+    {
+        $attributesResult = [ ];
+
+        foreach ($attributes as $attributeKey => $attributeValue) {
+            $attributesResult[] = htmlspecialchars($attributeKey) . '="' . htmlspecialchars($attributeValue) . '"';
+        }
+
+        return implode(' ', $attributesResult);
+    }
+
     /** @noinspection PhpDocSignatureInspection */
     /**
      * Transforms an array into HTML.
@@ -46,19 +64,6 @@ class Axe
             'closeElements' => false,
             'tagNull'       => 'div',
         ]));
-    }
-
-    /** @noinspection PhpDocSignatureInspection */
-    /**
-     * Transforms an array into XML.
-     *
-     * @param array|string ...$args Objects to transform.
-     *
-     * @return string
-     */
-    public static function xml(/** ...$args */)
-    {
-        return static::transform(func_get_args(), static::normalizeOptions());
     }
 
     /**
@@ -151,22 +156,33 @@ class Axe
         return $result;
     }
 
+    /** @noinspection PhpDocSignatureInspection */
     /**
-     * Returns a formatted attributes structure.
+     * Transforms an array into XML.
      *
-     * @param array $attributes Attributes to format.
+     * @param array|string ...$args Objects to transform.
      *
      * @return string
      */
-    public static function attributes($attributes)
+    public static function xml(/** ...$args */)
     {
-        $attributesResult = [ ];
+        return static::transform(func_get_args(), static::normalizeOptions());
+    }
 
-        foreach ($attributes as $attributeKey => $attributeValue) {
-            $attributesResult[] = htmlspecialchars($attributeKey) . '="' . htmlspecialchars($attributeValue) . '"';
+    /**
+     * Check if object is associative.
+     *
+     * @param  mixed $object Object to check.
+     *
+     * @return boolean
+     */
+    private static function isAssociative($object)
+    {
+        if (!is_array($object)) {
+            return false;
         }
 
-        return implode(' ', $attributesResult);
+        return (bool) count(array_filter(array_keys($object), 'is_string'));
     }
 
     /**
@@ -215,21 +231,5 @@ class Axe
         if (preg_match_all('/\.([\w\d-]+)/', $description, $descriptionMatch)) {
             $classes = implode(' ', $descriptionMatch[1]);
         }
-    }
-
-    /**
-     * Check if object is associative.
-     *
-     * @param  mixed $object Object to check.
-     *
-     * @return boolean
-     */
-    private static function isAssociative($object)
-    {
-        if (!is_array($object)) {
-            return false;
-        }
-
-        return (bool) count(array_filter(array_keys($object), 'is_string'));
     }
 }
