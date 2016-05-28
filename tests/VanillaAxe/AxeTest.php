@@ -55,6 +55,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
             100300 =>
                 [ 'html', [ [ 'div', [ 'id' => 'hello' ] ] ], '<div id="hello"></div>' ],
             [ 'html', [ [ 'div#hello', [ 'id' => 'world' ] ] ], '<div id="world"></div>' ],
+            [ 'html', [ [ 'div', [ 'class' => 0 ] ] ], '<div class="0"></div>' ],
 
             // HTML: Content.
             100400 =>
@@ -85,6 +86,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'html', [ [ 'div', false ] ], '<div></div>' ],
             [ 'html', [ [ 'div', null ] ], '<div></div>' ],
             [ 'html', [ [ 'div', '' ] ], '<div></div>' ],
+            [ 'html', [ [ 'div', 0 ] ], '<div>0</div>' ],
 
             // HTML: Unescaped values.
             100800 =>
@@ -112,6 +114,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
             200300 =>
                 [ 'xml', [ [ 'div', [ 'id' => 'hello' ] ] ], '<div id="hello" />' ],
             [ 'xml', [ [ 'div#hello', [ 'id' => 'world' ] ] ], '<div id="world" />' ],
+            [ 'xml', [ [ 'div', [ 'class' => 0 ] ] ], '<div class="0" />' ],
 
             // XML: Content.
             200400 =>
@@ -137,6 +140,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'xml', [ [ 'node', false ] ], '<node />' ],
             [ 'xml', [ [ 'node', null ] ], '<node />' ],
             [ 'xml', [ [ 'node', '' ] ], '<node />' ],
+            [ 'xml', [ [ 'node', 0 ] ], '<node>0</node>' ],
 
             // XML: Unescaped values.
             200800 =>

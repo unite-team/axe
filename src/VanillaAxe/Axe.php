@@ -131,7 +131,7 @@ class Axe
                 // Rebuild additional contents.
                 if (count($element)) {
                     $transformValue = static::transform($element, $options);
-                    if ($transformValue) {
+                    if ($transformValue || $transformValue === '0') {
                         $result .= ">{$transformValue}</{$tagName}>";
                         continue;
                     }
