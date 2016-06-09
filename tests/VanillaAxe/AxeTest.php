@@ -92,6 +92,12 @@ class AxeTest extends PHPUnit_Framework_TestCase
             100800 =>
                 [ 'html', [ [ 'div', '<br />' ] ], '<div><br /></div>' ],
 
+            // HTML: Elements container.
+            100900 =>
+                [ 'html', [ [ 'div', [ [ 'div' ] ] ] ], '<div><div></div></div>' ],
+            [ 'html', [ [ 'div', [ [ 'div' ], [ 'div' ] ] ] ], '<div><div></div><div></div></div>' ],
+            [ 'html', [ [ 'div', [ [ 'div' ], [ 'div' ], 'br' ] ] ], '<div><div></div><div></div>br</div>' ],
+
             // XML: Literal String.
             200000 =>
                 [ 'xml', [ 'Hello World' ], 'Hello World' ],
@@ -144,7 +150,13 @@ class AxeTest extends PHPUnit_Framework_TestCase
 
             // XML: Unescaped values.
             200800 =>
-                [ 'html', [ [ 'div', '<br />' ] ], '<div><br /></div>' ],
+                [ 'xml', [ [ 'div', '<br />' ] ], '<div><br /></div>' ],
+
+            // XML: Elements container.
+            200900 =>
+                [ 'xml', [ [ 'div', [ [ 'div' ] ] ] ], '<div><div /></div>' ],
+            [ 'xml', [ [ 'div', [ [ 'div' ], [ 'div' ] ] ] ], '<div><div /><div /></div>' ],
+            [ 'xml', [ [ 'div', [ [ 'div' ], [ 'div' ], 'br' ] ] ], '<div><div /><div />br</div>' ],
         ];
     }
 

@@ -93,6 +93,12 @@ class Axe
                     continue;
                 }
 
+                // If the first element is an array, then it is a elements container.
+                if (is_array($element[0])) {
+                    $result .= static::transform($element, $options);
+                    continue;
+                }
+
                 // The first element value is the tag description.
                 unset ( $tagName, $tagId, $tagClass );
                 static::parseTag(array_shift($element), $tagName, $tagId, $tagClass);
