@@ -116,7 +116,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
             101000 =>
                 [ 'html', [ [ 'input', [ 'checked' => true ] ] ], '<input checked />' ],
             [ 'html', [ [ 'input', [ 'checked' => '' ] ] ], '<input checked />' ],
-            [ 'html', [ [ 'input', [ 'checked' => 0 ] ] ], '<input checked="0" />' ],
+            [ 'html', [ [ 'input', [ 'value' => 0 ] ] ], '<input value="0" />' ],
             [ 'html', [ [ 'input', [ 'checked' => false ] ] ], '<input />' ],
 
             // HTML: elements and attributes should be lowercased.
@@ -124,9 +124,9 @@ class AxeTest extends PHPUnit_Framework_TestCase
                 [ 'html', [ [ 'BR' ] ], '<br />' ],
             [ 'html', [ [ 'Link' ] ], '<link />' ],
             [ 'html', [ [ 'DIV' ] ], '<div></div>' ],
-            [ 'html', [ [ 'DIV', [ 'KEY' => true ] ] ], '<div key></div>' ],
-            [ 'html', [ [ 'DIV', [ 'Key' => 123 ] ] ], '<div key="123"></div>' ],
-            [ 'html', [ [ 'DIV', [ 'Key' => 'Value' ] ] ], '<div key="Value"></div>' ],
+            [ 'html', [ [ 'INPUT', [ 'CHECKED' => true ] ] ], '<input checked />' ],
+            [ 'html', [ [ 'INPUT', [ 'Value' => 123 ] ] ], '<input value="123" />' ],
+            [ 'html', [ [ 'INPUT', [ 'Value' => 'Value' ] ] ], '<input value="Value" />' ],
 
             // XML: Literal String.
             200000 =>
@@ -192,24 +192,24 @@ class AxeTest extends PHPUnit_Framework_TestCase
             201000 =>
                 [ 'xml', [ [ 'input', [ 'checked' => true ] ] ], '<input checked />' ],
             [ 'xml', [ [ 'input', [ 'checked' => '' ] ] ], '<input checked />' ],
-            [ 'xml', [ [ 'input', [ 'checked' => 0 ] ] ], '<input checked="0" />' ],
+            [ 'xml', [ [ 'input', [ 'value' => 0 ] ] ], '<input value="0" />' ],
             [ 'xml', [ [ 'input', [ 'checked' => false ] ] ], '<input />' ],
 
             // XML: elements and attributes should not be lowercased.
             201100 =>
                 [ 'xml', [ [ 'BR' ] ], '<BR />' ],
             [ 'xml', [ [ 'Link' ] ], '<Link />' ],
-            [ 'xml', [ [ 'Div' ] ], '<Div />' ],
-            [ 'xml', [ [ 'Div', [ 'KEY' => true ] ] ], '<Div KEY />' ],
-            [ 'xml', [ [ 'Div', [ 'Key' => 123 ] ] ], '<Div Key="123" />' ],
-            [ 'xml', [ [ 'Div', [ 'Key' => 'Value' ] ] ], '<Div Key="Value" />' ],
+            [ 'xml', [ [ 'Node' ] ], '<Node />' ],
+            [ 'xml', [ [ 'Node', [ 'STYLE' => true ] ] ], '<Node STYLE />' ],
+            [ 'xml', [ [ 'Node', [ 'Value' => 123 ] ] ], '<Node Value="123" />' ],
+            [ 'xml', [ [ 'Node', [ 'Value' => 'Value' ] ] ], '<Node Value="Value" />' ],
         ];
     }
 
     /**
      * Test attributes method.
-     * @covers       Rentalhost\VanillaAxe\Axe::attributes
-     * @dataProvider dataAttributesMethod
+     * @covers        \Rentalhost\VanillaAxe\Axe::attributes
+     * @dataProvider  dataAttributesMethod
      *
      * @param array  $attributes     Attributes.
      * @param string $expectedResult Expected result.
@@ -221,8 +221,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test basic methods.
-     * @covers Rentalhost\VanillaAxe\Axe::html
-     * @return string
+     * @covers \Rentalhost\VanillaAxe\Axe::html
      */
     public function testBasicHTML()
     {
@@ -234,9 +233,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test basic methods.
-     * @covers  Rentalhost\VanillaAxe\Axe::xml
-     * @return string
-     * @depends testBasicHTML
+     * @covers \Rentalhost\VanillaAxe\Axe::xml
      */
     public function testBasicXML()
     {
@@ -248,13 +245,14 @@ class AxeTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test transforms methods.
-     * @covers       Rentalhost\VanillaAxe\Axe::html
-     * @covers       Rentalhost\VanillaAxe\Axe::xml
-     * @covers       Rentalhost\VanillaAxe\Axe::transform
-     * @covers       Rentalhost\VanillaAxe\Axe::normalizeOptions
-     * @covers       Rentalhost\VanillaAxe\Axe::parseTag
-     * @covers       Rentalhost\VanillaAxe\Axe::isAssociative
-     * @dataProvider dataTransformsMethods
+     * @covers        \Rentalhost\VanillaAxe\Axe::html
+     * @covers        \Rentalhost\VanillaAxe\Axe::xml
+     * @covers        \Rentalhost\VanillaAxe\Axe::transform
+     * @covers        \Rentalhost\VanillaAxe\Axe::normalizeOptions
+     * @covers        \Rentalhost\VanillaAxe\Axe::parseTag
+     * @covers        \Rentalhost\VanillaAxe\Axe::isAssociative
+     *
+     * @dataProvider  dataTransformsMethods
      *
      * @param string $method         Method of Axe to use.
      * @param array  $args           Method definition.
