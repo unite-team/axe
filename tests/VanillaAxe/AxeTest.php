@@ -17,8 +17,8 @@ class AxeTest extends PHPUnit_Framework_TestCase
     {
         return [
             [ [], '' ],
-            [ [ 1 ], '0="1"' ],
-            [ [ 1, 2, 3 ], '0="1" 1="2" 2="3"' ],
+            [ [ 1 ], '"1"' ],
+            [ [ 1, 2, 3 ], '"1" "2" "3"' ],
             [ [ 'a' => 'b' ], 'a="b"' ],
             [ [ 'data-name' => 'quote"value' ], 'data-name="quote&quot;value"' ],
             [ [ 'a' => 'b', 'c' => 'd' ], 'a="b" c="d"' ],

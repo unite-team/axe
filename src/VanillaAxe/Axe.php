@@ -54,6 +54,11 @@ class Axe
                 continue;
             }
 
+            if (is_int($attributeKey)) {
+                $attributesResult[] = '"' . htmlspecialchars($attributeValue) . '"';
+                continue;
+            }
+
             $attributesResult[] = htmlspecialchars($attributeKey) . '="' . htmlspecialchars($attributeValue) . '"';
         }
 
