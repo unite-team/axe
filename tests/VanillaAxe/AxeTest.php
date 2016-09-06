@@ -128,6 +128,33 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'html', [ [ 'INPUT', [ 'Value' => 123 ] ] ], '<input value="123" />' ],
             [ 'html', [ [ 'INPUT', [ 'Value' => 'Value' ] ] ], '<input value="Value" />' ],
 
+            // HTML: DOCTYPE support.
+            101200 =>
+                [ 'html', [ [ '!doctype' ] ], '<!doctype />' ],
+            [ 'html', [ [ '!DOCTYPE' ] ], '<!doctype />' ],
+            [ 'html', [ [ '!doctype', [ 'html' => true ] ] ], '<!doctype html />' ],
+            [ 'html', [ [ '!doctype', [ 'html' => true, 'public' => true ] ] ], '<!doctype html public />' ],
+            [
+                'html',
+                [
+                    [
+                        '!doctype',
+                        [ 'html' => true, 'public' => true, '-//W3C//DTD HTML 4.01//EN' ]
+                    ]
+                ],
+                '<!doctype html public "-//W3C//DTD HTML 4.01//EN" />',
+            ],
+            [
+                'html',
+                [
+                    [
+                        '!doctype',
+                        [ 'html' => true, 'public' => true, '-//W3C//DTD HTML 4.01//EN', 'http://www.w3.org/TR/html4/strict.dtd' ]
+                    ]
+                ],
+                '<!doctype html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd" />'
+            ],
+
             // XML: Literal String.
             200000 =>
                 [ 'xml', [ 'Hello World' ], 'Hello World' ],
@@ -203,6 +230,33 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'xml', [ [ 'Node', [ 'STYLE' => true ] ] ], '<Node STYLE />' ],
             [ 'xml', [ [ 'Node', [ 'Value' => 123 ] ] ], '<Node Value="123" />' ],
             [ 'xml', [ [ 'Node', [ 'Value' => 'Value' ] ] ], '<Node Value="Value" />' ],
+
+            // XML: DOCTYPE support.
+            201200 =>
+                [ 'xml', [ [ '!doctype' ] ], '<!doctype />' ],
+            [ 'xml', [ [ '!DOCTYPE' ] ], '<!DOCTYPE />' ],
+            [ 'xml', [ [ '!doctype', [ 'html' => true ] ] ], '<!doctype html />' ],
+            [ 'xml', [ [ '!doctype', [ 'html' => true, 'public' => true ] ] ], '<!doctype html public />' ],
+            [
+                'xml',
+                [
+                    [
+                        '!doctype',
+                        [ 'html' => true, 'public' => true, '-//W3C//DTD HTML 4.01//EN' ]
+                    ]
+                ],
+                '<!doctype html public "-//W3C//DTD HTML 4.01//EN" />',
+            ],
+            [
+                'xml',
+                [
+                    [
+                        '!doctype',
+                        [ 'html' => true, 'public' => true, '-//W3C//DTD HTML 4.01//EN', 'http://www.w3.org/TR/html4/strict.dtd' ]
+                    ]
+                ],
+                '<!doctype html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd" />'
+            ],
         ];
     }
 

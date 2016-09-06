@@ -29,6 +29,7 @@ class Axe
         'source',
         'track',
         'wbr',
+        '!doctype'
     ];
 
     /**
@@ -253,7 +254,7 @@ class Axe
     private static function parseTag($description, &$name, &$id, &$classes)
     {
         // Capture tag name.
-        if (preg_match('/^[a-z0-9][a-z0-9-:]*/i', $description, $descriptionMatch)) {
+        if (preg_match('/^[a-z0-9!][a-z0-9-:]*/i', $description, $descriptionMatch)) {
             $name = $descriptionMatch[0];
         }
 
