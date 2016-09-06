@@ -104,6 +104,12 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'html', [ [ 'div', [ [ 'div' ], [ 'div' ] ] ] ], '<div><div></div><div></div></div>' ],
             [ 'html', [ [ 'div', [ [ 'div' ], [ 'div' ], 'br' ] ] ], '<div><div></div><div></div>br</div>' ],
 
+            // HTML: Empty attributes support.
+            101000 =>
+                [ 'html', [ [ 'input', [ 'checked' => true ] ] ], '<input checked />' ],
+            [ 'html', [ [ 'input', [ 'checked' => '' ] ] ], '<input checked />' ],
+            [ 'html', [ [ 'input', [ 'checked' => 0 ] ] ], '<input checked="0" />' ],
+
             // XML: Literal String.
             200000 =>
                 [ 'xml', [ 'Hello World' ], 'Hello World' ],
@@ -163,6 +169,12 @@ class AxeTest extends PHPUnit_Framework_TestCase
                 [ 'xml', [ [ 'div', [ [ 'div' ] ] ] ], '<div><div /></div>' ],
             [ 'xml', [ [ 'div', [ [ 'div' ], [ 'div' ] ] ] ], '<div><div /><div /></div>' ],
             [ 'xml', [ [ 'div', [ [ 'div' ], [ 'div' ], 'br' ] ] ], '<div><div /><div />br</div>' ],
+
+            // XML: Empty attributes support.
+            201000 =>
+                [ 'xml', [ [ 'input', [ 'checked' => true ] ] ], '<input checked />' ],
+            [ 'xml', [ [ 'input', [ 'checked' => '' ] ] ], '<input checked />' ],
+            [ 'xml', [ [ 'input', [ 'checked' => 0 ] ] ], '<input checked="0" />' ],
         ];
     }
 

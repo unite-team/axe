@@ -43,6 +43,13 @@ class Axe
         $attributesResult = [];
 
         foreach ($attributes as $attributeKey => $attributeValue) {
+            if ($attributeValue === true ||
+                $attributeValue === ''
+            ) {
+                $attributesResult[] = htmlspecialchars($attributeKey);
+                continue;
+            }
+
             $attributesResult[] = htmlspecialchars($attributeKey) . '="' . htmlspecialchars($attributeValue) . '"';
         }
 
