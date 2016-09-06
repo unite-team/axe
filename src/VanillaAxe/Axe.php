@@ -40,7 +40,7 @@ class Axe
      */
     public static function attributes($attributes)
     {
-        $attributesResult = [ ];
+        $attributesResult = [];
 
         foreach ($attributes as $attributeKey => $attributeValue) {
             $attributesResult[] = htmlspecialchars($attributeKey) . '="' . htmlspecialchars($attributeValue) . '"';
@@ -100,12 +100,12 @@ class Axe
                 }
 
                 // The first element value is the tag description.
-                unset ( $tagName, $tagId, $tagClass );
+                unset ($tagName, $tagId, $tagClass);
                 static::parseTag(array_shift($element), $tagName, $tagId, $tagClass);
 
                 // If tag name is empty, so use tag null option.
                 $tagName       = $tagName ?: $options['tagNull'];
-                $tagAttributes = [ ];
+                $tagAttributes = [];
 
                 // Add description attributes.
                 if ($tagId !== null) {
@@ -117,7 +117,7 @@ class Axe
                 }
 
                 // Capture additional tags.
-                if (!empty( $element[0] ) &&
+                if (!empty($element[0]) &&
                     static::isAssociative($element[0])
                 ) {
                     /** @noinspection SlowArrayOperationsInLoopInspection */
@@ -205,10 +205,10 @@ class Axe
     private static function normalizeOptions($options = null)
     {
         return array_replace([
-            'voidElements'  => [ ],
+            'voidElements'  => [],
             'closeElements' => true,
             'tagNull'       => 'node',
-        ], $options ?: [ ]);
+        ], $options ?: []);
     }
 
     /**

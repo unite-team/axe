@@ -16,7 +16,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
     public function dataAttributesMethod()
     {
         return [
-            [ [ ], '' ],
+            [ [], '' ],
             [ [ 1 ], '0="1"' ],
             [ [ 1, 2, 3 ], '0="1" 1="2" 2="3"' ],
             [ [ 'a' => 'b' ], 'a="b"' ],
@@ -34,12 +34,12 @@ class AxeTest extends PHPUnit_Framework_TestCase
         return [
             // HTML: Literal String.
             100000 =>
-                [ 'html', [ ], null ],
+                [ 'html', [], null ],
             [ 'html', [ 'Hello World' ], 'Hello World' ],
 
             // HTML: Simple Tags.
             100100 =>
-                [ 'html', [ [ ] ], null ],
+                [ 'html', [ [] ], null ],
             [ 'html', [ [ '' ] ], '<div></div>' ],
             [ 'html', [ [ null ] ], '<div></div>' ],
             [ 'html', [ [ 'br' ] ], '<br />' ],
@@ -87,6 +87,12 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'html', [ [ 'div', null ] ], '<div></div>' ],
             [ 'html', [ [ 'div', '' ] ], '<div></div>' ],
             [ 'html', [ [ 'div', 0 ] ], '<div>0</div>' ],
+            [ 'html', [ [ 'div', 0.0 ] ], '<div>0</div>' ],
+            [ 'html', [ [ 'div', 0.1 ] ], '<div>0.1</div>' ],
+            [ 'html', [ [ 'div', '0.0' ] ], '<div>0.0</div>' ],
+            [ 'html', [ [ 'div', '0' ] ], '<div>0</div>' ],
+            [ 'html', [ [ 'div', '00' ] ], '<div>00</div>' ],
+            [ 'html', [ [ 'div', '-0' ] ], '<div>-0</div>' ],
 
             // HTML: Unescaped values.
             100800 =>
@@ -104,7 +110,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
 
             // XML: Simple Tags.
             200100 =>
-                [ 'xml', [ [ ] ], null ],
+                [ 'xml', [ [] ], null ],
             [ 'xml', [ [ '' ] ], '<node />' ],
             [ 'xml', [ [ null ] ], '<node />' ],
             [ 'xml', [ [ 'br' ] ], '<br />' ],
@@ -176,16 +182,24 @@ class AxeTest extends PHPUnit_Framework_TestCase
     /**
      * Test basic methods.
      * @covers Rentalhost\VanillaAxe\Axe::html
-     * @covers Rentalhost\VanillaAxe\Axe::xml
      * @return string
      */
-    public function testBasic()
+    public function testBasicHTML()
     {
         static::assertEquals('hello', Axe::html('hello'));
         static::assertEquals('<div></div>', Axe::html([ 'div' ]));
         static::assertEquals('<div></div>hello', Axe::html([ 'div' ], 'hello'));
         static::assertEquals('<div></div><br />', Axe::html([ 'div' ], [ 'br' ]));
+    }
 
+    /**
+     * Test basic methods.
+     * @covers  Rentalhost\VanillaAxe\Axe::xml
+     * @return string
+     * @depends testBasicHTML
+     */
+    public function testBasicXML()
+    {
         static::assertEquals('hello', Axe::xml('hello'));
         static::assertEquals('<div />', Axe::xml([ 'div' ]));
         static::assertEquals('<div />hello', Axe::xml([ 'div' ], 'hello'));
