@@ -109,6 +109,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
                 [ 'html', [ [ 'input', [ 'checked' => true ] ] ], '<input checked />' ],
             [ 'html', [ [ 'input', [ 'checked' => '' ] ] ], '<input checked />' ],
             [ 'html', [ [ 'input', [ 'checked' => 0 ] ] ], '<input checked="0" />' ],
+            [ 'html', [ [ 'input', [ 'checked' => false ] ] ], '<input />' ],
 
             // XML: Literal String.
             200000 =>
@@ -175,6 +176,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
                 [ 'xml', [ [ 'input', [ 'checked' => true ] ] ], '<input checked />' ],
             [ 'xml', [ [ 'input', [ 'checked' => '' ] ] ], '<input checked />' ],
             [ 'xml', [ [ 'input', [ 'checked' => 0 ] ] ], '<input checked="0" />' ],
+            [ 'xml', [ [ 'input', [ 'checked' => false ] ] ], '<input />' ],
         ];
     }
 

@@ -50,6 +50,10 @@ class Axe
                 continue;
             }
 
+            if ($attributeValue === false) {
+                continue;
+            }
+
             $attributesResult[] = htmlspecialchars($attributeKey) . '="' . htmlspecialchars($attributeValue) . '"';
         }
 
