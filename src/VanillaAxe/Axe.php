@@ -71,9 +71,10 @@ class Axe
     public static function html(/** ...$args */)
     {
         return static::transform(func_get_args(), static::normalizeOptions([
-            'voidElements'  => static::$HTML_VOID_ELEMENTS,
-            'closeElements' => false,
-            'tagNull'       => 'div',
+            'voidElements'   => static::$HTML_VOID_ELEMENTS,
+            'closeElements'  => false,
+            'tagNull'        => 'div',
+            'forceLowercase' => true
         ]));
     }
 
@@ -89,7 +90,7 @@ class Axe
     {
         $result = null;
 
-        /** @var mixed[]|string $element */
+        /** @var mixed[]|string|mixed $element */
         foreach ($elements as $element) {
             // Consider a scalar as literal result.
             // Note: boolean too is a scalar value, true will turns 1 and false will turns empty.
@@ -118,6 +119,11 @@ class Axe
                 $tagName       = $tagName ?: $options['tagNull'];
                 $tagAttributes = [];
 
+                // Force lowercase to tagnames.
+                if ($options['forceLowercase'] === true) {
+                    $tagName = strtolower($tagName);
+                }
+
                 // Add description attributes.
                 if ($tagId !== null) {
                     $tagAttributes['id'] = $tagId;
@@ -131,6 +137,14 @@ class Axe
                 if (!empty($element[0]) &&
                     static::isAssociative($element[0])
                 ) {
+                    // Force lowercase to attributes names.
+                    if ($options['forceLowercase'] === true) {
+                        $element[0] = array_combine(
+                            array_map('strtolower', array_keys($element[0])),
+                            array_values($element[0])
+                        );
+                    }
+
                     /** @noinspection SlowArrayOperationsInLoopInspection */
                     $tagAttributes = array_merge($tagAttributes, $element[0]);
                     array_shift($element);
@@ -216,9 +230,10 @@ class Axe
     private static function normalizeOptions($options = null)
     {
         return array_replace([
-            'voidElements'  => [],
-            'closeElements' => true,
-            'tagNull'       => 'node',
+            'voidElements'   => [],
+            'closeElements'  => true,
+            'tagNull'        => 'node',
+            'forceLowercase' => false
         ], $options ?: []);
     }
 
@@ -229,14 +244,12 @@ class Axe
      * @param  string &$name       Tag name.
      * @param  string &$id         Tag id.
      * @param  string &$classes    Tag classes.
-     *
-     * @return array
      */
     private static function parseTag($description, &$name, &$id, &$classes)
     {
         // Capture tag name.
         if (preg_match('/^[a-z0-9][a-z0-9-:]*/i', $description, $descriptionMatch)) {
-            $name = strtolower($descriptionMatch[0]);
+            $name = $descriptionMatch[0];
         }
 
         // Capture tag id.

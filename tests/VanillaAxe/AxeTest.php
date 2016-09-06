@@ -119,6 +119,15 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'html', [ [ 'input', [ 'checked' => 0 ] ] ], '<input checked="0" />' ],
             [ 'html', [ [ 'input', [ 'checked' => false ] ] ], '<input />' ],
 
+            // HTML: elements and attributes should be lowercased.
+            101100 =>
+                [ 'html', [ [ 'BR' ] ], '<br />' ],
+            [ 'html', [ [ 'Link' ] ], '<link />' ],
+            [ 'html', [ [ 'DIV' ] ], '<div></div>' ],
+            [ 'html', [ [ 'DIV', [ 'KEY' => true ] ] ], '<div key></div>' ],
+            [ 'html', [ [ 'DIV', [ 'Key' => 123 ] ] ], '<div key="123"></div>' ],
+            [ 'html', [ [ 'DIV', [ 'Key' => 'Value' ] ] ], '<div key="Value"></div>' ],
+
             // XML: Literal String.
             200000 =>
                 [ 'xml', [ 'Hello World' ], 'Hello World' ],
@@ -185,6 +194,15 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'xml', [ [ 'input', [ 'checked' => '' ] ] ], '<input checked />' ],
             [ 'xml', [ [ 'input', [ 'checked' => 0 ] ] ], '<input checked="0" />' ],
             [ 'xml', [ [ 'input', [ 'checked' => false ] ] ], '<input />' ],
+
+            // XML: elements and attributes should not be lowercased.
+            201100 =>
+                [ 'xml', [ [ 'BR' ] ], '<BR />' ],
+            [ 'xml', [ [ 'Link' ] ], '<Link />' ],
+            [ 'xml', [ [ 'Div' ] ], '<Div />' ],
+            [ 'xml', [ [ 'Div', [ 'KEY' => true ] ] ], '<Div KEY />' ],
+            [ 'xml', [ [ 'Div', [ 'Key' => 123 ] ] ], '<Div Key="123" />' ],
+            [ 'xml', [ [ 'Div', [ 'Key' => 'Value' ] ] ], '<Div Key="Value" />' ],
         ];
     }
 
