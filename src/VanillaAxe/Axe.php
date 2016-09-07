@@ -74,9 +74,9 @@ class Axe
      *
      * @return string
      */
-    public static function html(/** ...$args */)
+    public static function html(...$args)
     {
-        return static::transform(func_get_args(), static::normalizeOptions([
+        return static::transform($args, static::normalizeOptions([
             'voidElements'   => static::$HTML_VOID_ELEMENTS,
             'closeElements'  => false,
             'tagNull'        => 'div',
@@ -201,9 +201,9 @@ class Axe
      *
      * @return string
      */
-    public static function xml(/** ...$args */)
+    public static function xml(...$args)
     {
-        return static::transform(func_get_args(), static::normalizeOptions());
+        return static::transform($args, static::normalizeOptions());
     }
 
     /**
