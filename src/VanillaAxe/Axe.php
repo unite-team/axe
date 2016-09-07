@@ -146,14 +146,10 @@ class Axe
                     }
                 }
 
-                // If it is a void element, close element.
-                if (in_array($tagName, $options->voidElements, true)) {
-                    $result .= ' />';
-                    continue;
-                }
-
-                // Close element.
-                if ($options->closeElements === true) {
+                // Close when forced or is a void element.
+                if ($options->closeElements === true ||
+                    in_array($tagName, $options->voidElements, true)
+                ) {
                     $result .= ' />';
                     continue;
                 }
