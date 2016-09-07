@@ -9,30 +9,6 @@ namespace Rentalhost\VanillaAxe;
 class Axe
 {
     /**
-     * List of void HTML elements.
-     * @var string[]
-     */
-    private static $HTML_VOID_ELEMENTS = [
-        'area',
-        'base',
-        'br',
-        'col',
-        'command',
-        'embed',
-        'hr',
-        'img',
-        'input',
-        'keygen',
-        'link',
-        'meta',
-        'param',
-        'source',
-        'track',
-        'wbr',
-        '!doctype'
-    ];
-
-    /**
      * Returns a formatted attributes structure.
      *
      * @param array $attributes Attributes to format.
@@ -76,25 +52,21 @@ class Axe
      */
     public static function html(...$args)
     {
-        return static::transform($args, static::normalizeOptions([
-            'voidElements'   => static::$HTML_VOID_ELEMENTS,
-            'closeElements'  => false,
-            'tagNull'        => 'div',
-            'forceLowercase' => true
-        ]));
+        return static::transform($args, Transformation::getDefault('html'));
     }
 
     /**
      * Transformation process.
      *
-     * @param  array $elements Elements to transforms.
-     * @param  array $options  Options.
+     * @param  array          $elements Elements to transforms.
+     * @param  Transformation $options  Options.
      *
      * @return string
      */
-    public static function transform($elements, $options)
+    public static function transform($elements, Transformation $options = null)
     {
-        $result = null;
+        $result  = null;
+        $options = $options ?: Transformation::getDefault('xml');
 
         /** @var mixed[]|string|mixed $element */
         foreach ($elements as $element) {
@@ -122,11 +94,11 @@ class Axe
                 static::parseTag(array_shift($element), $tagName, $tagId, $tagClass);
 
                 // If tag name is empty, so use tag null option.
-                $tagName       = $tagName ?: $options['tagNull'];
+                $tagName       = $tagName ?: $options->tagFallback;
                 $tagAttributes = [];
 
                 // Force lowercase to tagnames.
-                if ($options['forceLowercase'] === true) {
+                if ($options->forcedLowercase === true) {
                     $tagName = strtolower($tagName);
                 }
 
@@ -144,7 +116,7 @@ class Axe
                     static::isAssociative($element[0])
                 ) {
                     // Force lowercase to attributes names.
-                    if ($options['forceLowercase'] === true) {
+                    if ($options->forcedLowercase === true) {
                         $element[0] = array_combine(
                             array_map('strtolower', array_keys($element[0])),
                             array_values($element[0])
@@ -175,13 +147,13 @@ class Axe
                 }
 
                 // If it is a void element, close element.
-                if (in_array($tagName, $options['voidElements'], true)) {
+                if (in_array($tagName, $options->voidElements, true)) {
                     $result .= ' />';
                     continue;
                 }
 
                 // Close element.
-                if ($options['closeElements'] === true) {
+                if ($options->closeElements === true) {
                     $result .= ' />';
                     continue;
                 }
@@ -203,7 +175,7 @@ class Axe
      */
     public static function xml(...$args)
     {
-        return static::transform($args, static::normalizeOptions());
+        return static::transform($args, Transformation::getDefault('xml'));
     }
 
     /**
@@ -220,27 +192,6 @@ class Axe
         }
 
         return (bool) count(array_filter(array_keys($object), 'is_string'));
-    }
-
-    /**
-     * Returns an option array normalized.
-     *
-     * @param  array $options Options to overwrite.
-     *
-     * @internal param array   $options["voidElements"]  List all void elements.
-     * @internal param boolean $options["closeElements"] If should to close void elements.
-     * @internal param string  $options["tagNull"]       Tag name where it isn't defined.
-     *
-     * @return array
-     */
-    private static function normalizeOptions($options = null)
-    {
-        return array_replace([
-            'voidElements'   => [],
-            'closeElements'  => true,
-            'tagNull'        => 'node',
-            'forceLowercase' => false
-        ], $options ?: []);
     }
 
     /**
