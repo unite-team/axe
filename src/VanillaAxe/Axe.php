@@ -42,7 +42,6 @@ class Axe
         return implode(' ', $attributesResult);
     }
 
-    /** @noinspection PhpDocSignatureInspection */
     /**
      * Transforms an array into HTML.
      *
@@ -123,7 +122,6 @@ class Axe
                         );
                     }
 
-                    /** @noinspection SlowArrayOperationsInLoopInspection */
                     $tagAttributes = array_merge($tagAttributes, $element[0]);
                     array_shift($element);
                 }
@@ -161,7 +159,6 @@ class Axe
         return $result;
     }
 
-    /** @noinspection PhpDocSignatureInspection */
     /**
      * Transforms an array into XML.
      *

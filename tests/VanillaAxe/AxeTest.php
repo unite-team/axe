@@ -38,7 +38,6 @@ class AxeTest extends PHPUnit_Framework_TestCase
      */
     public function dataTransformsMethods()
     {
-        /** @noinspection CheckEmptyScriptTag */
         return [
             // HTML: Literal String.
             100000 =>
