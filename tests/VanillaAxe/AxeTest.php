@@ -166,30 +166,30 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'xml', [ [ 'br' ] ], '<br />' ],
             [ 'xml', [ [ 'div' ] ], '<div />' ],
 
-            // XML: Description Tags.
+            // XML: Advanced Parsing is not supported for XML.
             200200 =>
-                [ 'xml', [ [ '#hello' ] ], '<node id="hello" />' ],
-            [ 'xml', [ [ '.hello' ] ], '<node class="hello" />' ],
-            [ 'xml', [ [ '#he.llo.world' ] ], '<node id="he" class="llo world" />' ],
+                [ 'xml', [ [ '#hello' ] ], '<#hello />' ],
+            [ 'xml', [ [ '.hello' ] ], '<.hello />' ],
+            [ 'xml', [ [ '#he.llo.world' ] ], '<#he.llo.world />' ],
 
             // XML: Attributes.
             200300 =>
                 [ 'xml', [ [ 'div', [ 'id' => 'hello' ] ] ], '<div id="hello" />' ],
-            [ 'xml', [ [ 'div#hello', [ 'id' => 'world' ] ] ], '<div id="world" />' ],
+            [ 'xml', [ [ 'div#hello', [ 'id' => 'world' ] ] ], '<div#hello id="world" />' ],
             [ 'xml', [ [ 'div', [ 'class' => 0 ] ] ], '<div class="0" />' ],
 
             // XML: Content.
             200400 =>
                 [ 'xml', [ [ 'div', 'hello' ] ], '<div>hello</div>' ],
-            [ 'xml', [ [ 'div#hello', 'world' ] ], '<div id="hello">world</div>' ],
-            [ 'xml', [ [ 'div#hello', 'world', [ 'br' ] ] ], '<div id="hello">world<br /></div>' ],
+            [ 'xml', [ [ 'div#hello', 'world' ] ], '<div#hello>world</div#hello>' ],
+            [ 'xml', [ [ 'div#hello', 'world', [ 'br' ] ] ], '<div#hello>world<br /></div#hello>' ],
 
             // XML: Avoid reference copy.
             200600 =>
                 [
                     'xml',
                     [ [ 'div', [ 'span#id.class' ], [ null ] ] ],
-                    '<div><span id="id" class="class" /><node /></div>',
+                    '<div><span#id.class /><node /></div>',
                 ],
 
             // XML: Simple values.

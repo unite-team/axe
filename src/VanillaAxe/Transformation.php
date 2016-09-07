@@ -15,6 +15,12 @@ class Transformation
     private static $cachedOptions = [];
 
     /**
+     * When advanced parsing should be executed.
+     * @var bool
+     */
+    public $advancedParsing = false;
+
+    /**
      * When enabled, empty elements will be closed, like in <node />.
      * @var bool
      */
@@ -54,6 +60,7 @@ class Transformation
             $typeInstance = new Transformation();
 
             if ($type === 'html') {
+                $typeInstance->advancedParsing = true;
                 $typeInstance->closeElements   = false;
                 $typeInstance->forcedLowercase = true;
                 $typeInstance->tagFallback     = 'div';

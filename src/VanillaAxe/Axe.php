@@ -90,24 +90,29 @@ class Axe
 
                 // The first element value is the tag description.
                 unset ($tagName, $tagId, $tagClass);
-                static::parseTag(array_shift($element), $tagName, $tagId, $tagClass);
 
-                // If tag name is empty, so use tag null option.
-                $tagName       = $tagName ?: $options->tagFallback;
                 $tagAttributes = [];
+
+                if ($options->advancedParsing) {
+                    static::parseTag(array_shift($element), $tagName, $tagId, $tagClass);
+                    $tagName = $tagName ?: $options->tagFallback;
+
+                    // Add description attributes.
+                    if ($tagId !== null) {
+                        $tagAttributes['id'] = $tagId;
+                    }
+
+                    if ($tagClass !== null) {
+                        $tagAttributes['class'] = $tagClass;
+                    }
+                }
+                else {
+                    $tagName = array_shift($element) ?: $options->tagFallback;
+                }
 
                 // Force lowercase to tagnames.
                 if ($options->forcedLowercase === true) {
                     $tagName = strtolower($tagName);
-                }
-
-                // Add description attributes.
-                if ($tagId !== null) {
-                    $tagAttributes['id'] = $tagId;
-                }
-
-                if ($tagClass !== null) {
-                    $tagAttributes['class'] = $tagClass;
                 }
 
                 // Capture additional tags.
@@ -132,7 +137,7 @@ class Axe
                 // Fill tag attributes.
                 $tagAttributesString = static::attributes($tagAttributes);
                 if ($tagAttributesString) {
-                    $result .= ' ' . $tagAttributesString;
+                    $result .= " {$tagAttributesString}";
                 }
 
                 // Rebuild additional contents.
