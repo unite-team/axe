@@ -154,6 +154,13 @@ class AxeTest extends PHPUnit_Framework_TestCase
                 '<!doctype html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd" />'
             ],
 
+            // HTML: XML header should not be parsed as valid - so it'll use fallback (div).
+            101300 =>
+                [ 'html', [ [ '?xml', [ 'version' => '1.0' ] ] ], '<div version="1.0"></div>' ],
+            [ 'html', [ [ '?test', [ 'version' => '1.0' ] ] ], '<div version="1.0"></div>' ],
+            [ 'html', [ [ '?xml', [ 'version' => '1.0' ], 'Hello' ] ], '<div version="1.0">Hello</div>' ],
+            [ 'html', [ [ '?xml', 'Hello' ] ], '<div>Hello</div>' ],
+
             // XML: Literal String.
             200000 =>
                 [ 'xml', [ 'Hello World' ], 'Hello World' ],
@@ -256,6 +263,13 @@ class AxeTest extends PHPUnit_Framework_TestCase
                 ],
                 '<!doctype html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd" />'
             ],
+
+            // XML: supports XML header - except if it have contents.
+            201300 =>
+                [ 'xml', [ [ '?xml', [ 'version' => '1.0' ] ] ], '<?xml version="1.0" ?>' ],
+            [ 'xml', [ [ '?test', [ 'version' => '1.0' ] ] ], '<?test version="1.0" ?>' ],
+            [ 'xml', [ [ '?xml', [ 'version' => '1.0' ], 'Hello' ] ], '<?xml version="1.0">Hello</?xml>' ],
+            [ 'xml', [ [ '?xml', 'Hello' ] ], '<?xml>Hello</?xml>' ],
         ];
     }
 

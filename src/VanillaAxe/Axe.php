@@ -153,7 +153,10 @@ class Axe
                 if ($options->closeElements === true ||
                     in_array($tagName, $options->voidElements, true)
                 ) {
-                    $result .= ' />';
+                    $result .= $options->questionTagAllowed &&
+                               strpos($tagName, '?') === 0
+                        ? ' ?>'
+                        : ' />';
                     continue;
                 }
 

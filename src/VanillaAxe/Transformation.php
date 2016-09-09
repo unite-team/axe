@@ -33,6 +33,12 @@ class Transformation
     public $forcedLowercase = false;
 
     /**
+     * When enabled, it'll override "/>" by "?>" when tagname is started by "?" (like "?xml").
+     * @var bool
+     */
+    public $questionTagAllowed = true;
+
+    /**
      * When tag is not defined on array, then this value is used.
      * @var string
      */
@@ -60,11 +66,12 @@ class Transformation
             $typeInstance = new Transformation();
 
             if ($type === 'html') {
-                $typeInstance->advancedParsing = true;
-                $typeInstance->closeElements   = false;
-                $typeInstance->forcedLowercase = true;
-                $typeInstance->tagFallback     = 'div';
-                $typeInstance->voidElements    = [
+                $typeInstance->advancedParsing    = true;
+                $typeInstance->closeElements      = false;
+                $typeInstance->forcedLowercase    = true;
+                $typeInstance->questionTagAllowed = false;
+                $typeInstance->tagFallback        = 'div';
+                $typeInstance->voidElements       = [
                     'area',
                     'base',
                     'br',
