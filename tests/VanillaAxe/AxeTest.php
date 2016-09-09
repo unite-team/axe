@@ -315,7 +315,6 @@ class AxeTest extends PHPUnit_Framework_TestCase
      * @covers        \Rentalhost\VanillaAxe\Axe::html
      * @covers        \Rentalhost\VanillaAxe\Axe::xml
      * @covers        \Rentalhost\VanillaAxe\Axe::transform
-     * @covers        \Rentalhost\VanillaAxe\Axe::normalizeOptions
      * @covers        \Rentalhost\VanillaAxe\Axe::parseTag
      * @covers        \Rentalhost\VanillaAxe\Axe::isAssociative
      *
