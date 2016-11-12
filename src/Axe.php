@@ -193,7 +193,7 @@ class Axe
             return false;
         }
 
-        return (bool) count(array_filter(array_keys($object), 'is_string'));
+        return array_values($object) !== $object;
     }
 
     /**
