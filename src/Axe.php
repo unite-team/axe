@@ -2,12 +2,22 @@
 
 namespace Unite\Axe;
 
+use Unite\Axe\Transformation\HTML;
+use Unite\Axe\Transformation\Transformation;
+use Unite\Axe\Transformation\XML;
+
 /**
  * Class Axe
  * @package Unite\Axe
  */
 class Axe
 {
+    /**
+     * Stores all initialized transformations.
+     * @var Transformation[]
+     */
+    private static $transformationsCache = [];
+
     /**
      * Transforms an array to XHTML attribute.
      *
@@ -51,22 +61,24 @@ class Axe
      */
     public static function html(...$args)
     {
-        return static::transform($args, Transformation::getDefault('html'));
+        return static::transform($args, self::getTransformation(HTML::class));
     }
 
     /**
      * Transforms an array of elements based on a Transformation.
-     * If Transformation is not defined, then it'll use a default XML Transformation.
+     * If a Transformation is not defined, then it'll use a default XML Transformation.
      *
-     * @param string[]       $elements Elements to transforms.
-     * @param Transformation $options  Transformation object.
+     * @param string[]              $elements            Elements to transforms.
+     * @param string|Transformation $transformationClass Transformation class reference.
      *
      * @return string
      */
-    public static function transform($elements, Transformation $options = null)
+    public static function transform($elements, $transformationClass = null)
     {
-        $result  = null;
-        $options = $options ?: Transformation::getDefault('xml');
+        $result         = null;
+        $transformation = $transformationClass instanceof Transformation
+            ? $transformationClass
+            : self::getTransformation($transformationClass ?: XML::class);
 
         /** @var mixed[]|string|mixed $element */
         foreach ($elements as $element) {
@@ -85,7 +97,7 @@ class Axe
 
                 // If the first element is an array, then it is a elements container.
                 if (is_array($element[0])) {
-                    $result .= static::transform($element, $options);
+                    $result .= static::transform($element, $transformation);
                     continue;
                 }
 
@@ -94,9 +106,9 @@ class Axe
 
                 $tagAttributes = [];
 
-                if ($options->advancedParsing) {
+                if ($transformation->advancedParsing) {
                     static::parseTag(array_shift($element), $tagName, $tagId, $tagClass);
-                    $tagName = $tagName ?: $options->tagFallback;
+                    $tagName = $tagName ?: $transformation->tagFallback;
 
                     // Add description attributes.
                     if ($tagId !== null) {
@@ -108,11 +120,11 @@ class Axe
                     }
                 }
                 else {
-                    $tagName = array_shift($element) ?: $options->tagFallback;
+                    $tagName = array_shift($element) ?: $transformation->tagFallback;
                 }
 
                 // Force lowercase to tagnames.
-                if ($options->forcedLowercase === true) {
+                if ($transformation->forcedLowercase === true) {
                     $tagName = strtolower($tagName);
                 }
 
@@ -121,7 +133,7 @@ class Axe
                     static::isAssociative($element[0])
                 ) {
                     // Force lowercase to attributes names.
-                    if ($options->forcedLowercase === true) {
+                    if ($transformation->forcedLowercase === true) {
                         $element[0] = array_combine(
                             array_map('strtolower', array_keys($element[0])),
                             array_values($element[0])
@@ -143,7 +155,7 @@ class Axe
 
                 // Rebuild additional contents.
                 if (count($element)) {
-                    $transformValue = static::transform($element, $options);
+                    $transformValue = static::transform($element, $transformation);
                     if ($transformValue || $transformValue === '0') {
                         $result .= ">{$transformValue}</{$tagName}>";
                         continue;
@@ -151,10 +163,10 @@ class Axe
                 }
 
                 // Close when forced or is a void element.
-                if ($options->closeElements === true ||
-                    in_array($tagName, $options->voidElements, true)
+                if ($transformation->closeElements === true ||
+                    in_array($tagName, $transformation->voidElements, true)
                 ) {
-                    $result .= $options->questionTagAllowed &&
+                    $result .= $transformation->questionTagAllowed &&
                                strpos($tagName, '?') === 0
                         ? ' ?>'
                         : ' />';
@@ -177,7 +189,25 @@ class Axe
      */
     public static function xml(...$args)
     {
-        return static::transform($args, Transformation::getDefault('xml'));
+        return static::transform($args, self::getTransformation(XML::class));
+    }
+
+    /**
+     * Returns a cached version of a Transformation class.
+     *
+     * @param string $transformationClass Transformation class name.
+     *
+     * @return Transformation
+     */
+    private static function getTransformation($transformationClass)
+    {
+        assert(is_subclass_of($transformationClass, Transformation::class));
+
+        if (!array_key_exists($transformationClass, self::$transformationsCache)) {
+            self::$transformationsCache[$transformationClass] = new $transformationClass;
+        }
+
+        return self::$transformationsCache[$transformationClass];
     }
 
     /**

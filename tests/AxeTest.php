@@ -157,9 +157,9 @@ class AxeTest extends PHPUnit_Framework_TestCase
 
             // HTML: XML header should not be parsed as valid - so it'll use fallback (div).
             101300 =>
-                [ 'html', [ [ '?xml', [ 'version' => '1.0' ] ] ], '<div version="1.0"></div>' ],
-            [ 'html', [ [ '?test', [ 'version' => '1.0' ] ] ], '<div version="1.0"></div>' ],
-            [ 'html', [ [ '?xml', [ 'version' => '1.0' ], 'Hello' ] ], '<div version="1.0">Hello</div>' ],
+                [ 'html', [ [ '?xml', [ 'data-version' => '1.0' ] ] ], '<div data-version="1.0"></div>' ],
+            [ 'html', [ [ '?test', [ 'data-version' => '1.0' ] ] ], '<div data-version="1.0"></div>' ],
+            [ 'html', [ [ '?xml', [ 'data-version' => '1.0' ], 'Hello' ] ], '<div data-version="1.0">Hello</div>' ],
             [ 'html', [ [ '?xml', 'Hello' ] ], '<div>Hello</div>' ],
 
             // XML: Literal String.
@@ -291,6 +291,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
     /**
      * Test basic methods.
      * @covers \Unite\Axe\Axe::html
+     * @covers \Unite\Axe\Axe::getTransformation
      */
     public function testBasicHTML()
     {
