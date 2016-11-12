@@ -13,7 +13,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
     /**
      * @return array
      */
-    public function dataAttributesMethod()
+    public function dataAttributesMethod(): array
     {
         return [
             [ [], '' ],
@@ -36,17 +36,17 @@ class AxeTest extends PHPUnit_Framework_TestCase
     /**
      * @return array
      */
-    public function dataTransformsMethods()
+    public function dataTransformsMethods(): array
     {
         return [
             // HTML: Literal String.
             100000 =>
-                [ 'html', [], null ],
+                [ 'html', [], '' ],
             [ 'html', [ 'Hello World' ], 'Hello World' ],
 
             // HTML: Simple Tags.
             100100 =>
-                [ 'html', [ [] ], null ],
+                [ 'html', [ [] ], '' ],
             [ 'html', [ [ '' ] ], '<div></div>' ],
             [ 'html', [ [ null ] ], '<div></div>' ],
             [ 'html', [ [ 'br' ] ], '<br />' ],
@@ -168,7 +168,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
 
             // XML: Simple Tags.
             200100 =>
-                [ 'xml', [ [] ], null ],
+                [ 'xml', [ [] ], '' ],
             [ 'xml', [ [ '' ] ], '<node />' ],
             [ 'xml', [ [ null ] ], '<node />' ],
             [ 'xml', [ [ 'br' ] ], '<br />' ],
@@ -283,7 +283,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
      * @param array  $attributes     Attributes.
      * @param string $expectedResult Expected result.
      */
-    public function testAttributesMethod($attributes, $expectedResult)
+    public function testAttributesMethod($attributes, $expectedResult): void
     {
         static::assertSame($expectedResult, Axe::attributes($attributes));
     }
@@ -293,24 +293,24 @@ class AxeTest extends PHPUnit_Framework_TestCase
      * @covers \Unite\Axe\Axe::html
      * @covers \Unite\Axe\Axe::getTransformation
      */
-    public function testBasicHTML()
+    public function testBasicHTML(): void
     {
-        static::assertEquals('hello', Axe::html('hello'));
-        static::assertEquals('<div></div>', Axe::html([ 'div' ]));
-        static::assertEquals('<div></div>hello', Axe::html([ 'div' ], 'hello'));
-        static::assertEquals('<div></div><br />', Axe::html([ 'div' ], [ 'br' ]));
+        static::assertSame('hello', Axe::html('hello'));
+        static::assertSame('<div></div>', Axe::html([ 'div' ]));
+        static::assertSame('<div></div>hello', Axe::html([ 'div' ], 'hello'));
+        static::assertSame('<div></div><br />', Axe::html([ 'div' ], [ 'br' ]));
     }
 
     /**
      * Test basic methods.
      * @covers \Unite\Axe\Axe::xml
      */
-    public function testBasicXML()
+    public function testBasicXML(): void
     {
-        static::assertEquals('hello', Axe::xml('hello'));
-        static::assertEquals('<div />', Axe::xml([ 'div' ]));
-        static::assertEquals('<div />hello', Axe::xml([ 'div' ], 'hello'));
-        static::assertEquals('<div /><br />', Axe::xml([ 'div' ], [ 'br' ]));
+        static::assertSame('hello', Axe::xml('hello'));
+        static::assertSame('<div />', Axe::xml([ 'div' ]));
+        static::assertSame('<div />hello', Axe::xml([ 'div' ], 'hello'));
+        static::assertSame('<div /><br />', Axe::xml([ 'div' ], [ 'br' ]));
     }
 
     /**
@@ -327,8 +327,8 @@ class AxeTest extends PHPUnit_Framework_TestCase
      * @param array  $args           Method definition.
      * @param string $expectedResult Expected result.
      */
-    public function testTransformsMethods($method, $args, $expectedResult)
+    public function testTransformsMethods($method, $args, $expectedResult): void
     {
-        static::assertEquals($expectedResult, call_user_func_array([ Axe::class, $method ], $args));
+        static::assertSame($expectedResult, call_user_func_array([ Axe::class, $method ], $args));
     }
 }

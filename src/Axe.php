@@ -25,7 +25,7 @@ class Axe
      *
      * @return string
      */
-    public static function attributes($attributes)
+    public static function attributes($attributes): string
     {
         $attributesResult = [];
 
@@ -59,7 +59,7 @@ class Axe
      *
      * @return string
      */
-    public static function html(...$args)
+    public static function html(...$args): string
     {
         return static::transform($args, self::getTransformation(HTML::class));
     }
@@ -73,9 +73,9 @@ class Axe
      *
      * @return string
      */
-    public static function transform($elements, $transformationClass = null)
+    public static function transform($elements, $transformationClass = null): string
     {
-        $result         = null;
+        $result         = '';
         $transformation = $transformationClass instanceof Transformation
             ? $transformationClass
             : self::getTransformation($transformationClass ?: XML::class);
@@ -187,7 +187,7 @@ class Axe
      *
      * @return string
      */
-    public static function xml(...$args)
+    public static function xml(...$args): string
     {
         return static::transform($args, self::getTransformation(XML::class));
     }
@@ -199,7 +199,7 @@ class Axe
      *
      * @return Transformation
      */
-    private static function getTransformation($transformationClass)
+    private static function getTransformation($transformationClass): Transformation
     {
         assert(is_subclass_of($transformationClass, Transformation::class));
 
@@ -217,7 +217,7 @@ class Axe
      *
      * @return boolean
      */
-    private static function isAssociative($object)
+    private static function isAssociative($object): bool
     {
         if (!is_array($object)) {
             return false;
@@ -234,7 +234,7 @@ class Axe
      * @param string $id          Tag id.
      * @param string $classes     Tag classes.
      */
-    private static function parseTag($description, &$name, &$id, &$classes)
+    private static function parseTag($description, &$name, &$id, &$classes): void
     {
         // Capture tag name.
         if (preg_match('/^[a-z0-9!][a-z0-9-:]*/i', $description, $descriptionMatch)) {
