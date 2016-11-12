@@ -128,7 +128,7 @@ class Axe
                         );
                     }
 
-                    $tagAttributes = array_merge($tagAttributes, $element[0]);
+                    $tagAttributes = $element[0] + $tagAttributes;
                     array_shift($element);
                 }
 
