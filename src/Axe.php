@@ -107,16 +107,21 @@ class Axe
                 $tagAttributes = [];
 
                 if ($transformation->advancedParsing) {
-                    static::parseTag(array_shift($element), $tagName, $tagId, $tagClass);
-                    $tagName = $tagName ?: $transformation->tagFallback;
+                    $tagDescription = array_shift($element);
+                    $tagName        = $transformation->tagFallback;
 
-                    // Add description attributes.
-                    if ($tagId !== null) {
-                        $tagAttributes['id'] = $tagId;
-                    }
+                    if ($tagDescription !== null) {
+                        static::parseTag($tagDescription, $tagName, $tagId, $tagClass);
 
-                    if ($tagClass !== null) {
-                        $tagAttributes['class'] = $tagClass;
+
+                        // Add description attributes.
+                        if ($tagId !== null) {
+                            $tagAttributes['id'] = $tagId;
+                        }
+
+                        if ($tagClass !== null) {
+                            $tagAttributes['class'] = $tagClass;
+                        }
                     }
                 }
                 else {
