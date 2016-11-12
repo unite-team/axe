@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Unite\Axe;
 
 use Unite\Axe\Transformation\HTML;
@@ -25,7 +27,7 @@ class Axe
      *
      * @return string
      */
-    public static function attributes($attributes): string
+    public static function attributes(array $attributes): string
     {
         $attributesResult = [];
 
@@ -42,11 +44,11 @@ class Axe
             }
 
             if (is_int($attributeKey)) {
-                $attributesResult[] = '"' . htmlspecialchars($attributeValue) . '"';
+                $attributesResult[] = '"' . htmlspecialchars((string) $attributeValue) . '"';
                 continue;
             }
 
-            $attributesResult[] = htmlspecialchars($attributeKey) . '="' . htmlspecialchars($attributeValue) . '"';
+            $attributesResult[] = htmlspecialchars($attributeKey) . '="' . htmlspecialchars((string) $attributeValue) . '"';
         }
 
         return implode(' ', $attributesResult);
@@ -112,7 +114,6 @@ class Axe
 
                     if ($tagDescription !== null) {
                         static::parseTag($tagDescription, $tagName, $tagId, $tagClass);
-
 
                         // Add description attributes.
                         if ($tagId !== null) {
@@ -204,7 +205,7 @@ class Axe
      *
      * @return Transformation
      */
-    private static function getTransformation($transformationClass): Transformation
+    private static function getTransformation(string $transformationClass): Transformation
     {
         assert(is_subclass_of($transformationClass, Transformation::class));
 
@@ -239,7 +240,7 @@ class Axe
      * @param string $id          Tag id.
      * @param string $classes     Tag classes.
      */
-    private static function parseTag($description, &$name, &$id, &$classes): void
+    private static function parseTag(string $description, &$name, &$id, &$classes)
     {
         // Capture tag name.
         if (preg_match('/^[a-z0-9!][a-z0-9-:]*/i', $description, $descriptionMatch)) {

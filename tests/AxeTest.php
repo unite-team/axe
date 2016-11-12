@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Unite\Axe;
 
 use PHPUnit_Framework_TestCase;
@@ -283,7 +285,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
      * @param array  $attributes     Attributes.
      * @param string $expectedResult Expected result.
      */
-    public function testAttributesMethod($attributes, $expectedResult): void
+    public function testAttributesMethod(array $attributes, string $expectedResult)
     {
         static::assertSame($expectedResult, Axe::attributes($attributes));
     }
@@ -293,7 +295,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
      * @covers \Unite\Axe\Axe::html
      * @covers \Unite\Axe\Axe::getTransformation
      */
-    public function testBasicHTML(): void
+    public function testBasicHTML()
     {
         static::assertSame('hello', Axe::html('hello'));
         static::assertSame('<div></div>', Axe::html([ 'div' ]));
@@ -305,7 +307,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
      * Test basic methods.
      * @covers \Unite\Axe\Axe::xml
      */
-    public function testBasicXML(): void
+    public function testBasicXML()
     {
         static::assertSame('hello', Axe::xml('hello'));
         static::assertSame('<div />', Axe::xml([ 'div' ]));
@@ -327,7 +329,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
      * @param array  $args           Method definition.
      * @param string $expectedResult Expected result.
      */
-    public function testTransformsMethods($method, $args, $expectedResult): void
+    public function testTransformsMethods(string $method, array $args, string $expectedResult)
     {
         static::assertSame($expectedResult, call_user_func_array([ Axe::class, $method ], $args));
     }
