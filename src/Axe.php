@@ -9,9 +9,9 @@ namespace Unite\Axe;
 class Axe
 {
     /**
-     * Returns a formatted attributes structure.
+     * Transforms an array to XHTML attribute.
      *
-     * @param array $attributes Attributes to format.
+     * @param string[] $attributes Attributes to format.
      *
      * @return string
      */
@@ -43,9 +43,9 @@ class Axe
     }
 
     /**
-     * Transforms an array into HTML.
+     * Transforms an array to a HTML.
      *
-     * @param array|string ...$args Objects to transform.
+     * @param string[] ...$args Array to transforms.
      *
      * @return string
      */
@@ -55,10 +55,11 @@ class Axe
     }
 
     /**
-     * Transformation process.
+     * Transforms an array of elements based on a Transformation.
+     * If Transformation is not defined, then it'll use a default XML Transformation.
      *
-     * @param  array          $elements Elements to transforms.
-     * @param  Transformation $options  Options.
+     * @param string[]       $elements Elements to transforms.
+     * @param Transformation $options  Transformation object.
      *
      * @return string
      */
@@ -168,9 +169,9 @@ class Axe
     }
 
     /**
-     * Transforms an array into XML.
+     * Transforms an array to a XML.
      *
-     * @param array|string ...$args Objects to transform.
+     * @param string[] ...$args Array to transforms.
      *
      * @return string
      */
@@ -180,9 +181,9 @@ class Axe
     }
 
     /**
-     * Check if object is associative.
+     * Check if a given object is an associative array.
      *
-     * @param  mixed $object Object to check.
+     * @param mixed $object Object to checks.
      *
      * @return boolean
      */
@@ -196,12 +197,12 @@ class Axe
     }
 
     /**
-     * Parse a tag description, capturing the tag name, id and classes.
+     * Parses a tag description, capturing the tag name, id and classes.
      *
-     * @param  string $description Tag description.
-     * @param  string &$name       Tag name.
-     * @param  string &$id         Tag id.
-     * @param  string &$classes    Tag classes.
+     * @param string $description Tag description.
+     * @param string $name        Tag name.
+     * @param string $id          Tag id.
+     * @param string $classes     Tag classes.
      */
     private static function parseTag($description, &$name, &$id, &$classes)
     {

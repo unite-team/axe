@@ -126,6 +126,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'html', [ [ 'INPUT', [ 'CHECKED' => true ] ] ], '<input checked />' ],
             [ 'html', [ [ 'INPUT', [ 'Value' => 123 ] ] ], '<input value="123" />' ],
             [ 'html', [ [ 'INPUT', [ 'Value' => 'Value' ] ] ], '<input value="Value" />' ],
+            [ 'html', [ [ 'INPUT', [ 'VALUE' => '1', 'Value' => '2' ] ] ], '<input value="2" />' ],
 
             // HTML: DOCTYPE support.
             101200 =>
@@ -236,6 +237,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'xml', [ [ 'Node', [ 'STYLE' => true ] ] ], '<Node STYLE />' ],
             [ 'xml', [ [ 'Node', [ 'Value' => 123 ] ] ], '<Node Value="123" />' ],
             [ 'xml', [ [ 'Node', [ 'Value' => 'Value' ] ] ], '<Node Value="Value" />' ],
+            [ 'xml', [ [ 'Node', [ 'VALUE' => '1', 'Value' => '2' ] ] ], '<Node VALUE="1" Value="2" />' ],
 
             // XML: DOCTYPE support.
             201200 =>
