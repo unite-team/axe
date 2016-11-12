@@ -1,12 +1,12 @@
 <?php
 
-namespace Rentalhost\VanillaAxe;
+namespace Unite\Axe;
 
 use PHPUnit_Framework_TestCase;
 
 /**
  * Class AxeTest
- * @package Rentalhost\VanillaAxe
+ * @package Unite\Axe
  */
 class AxeTest extends PHPUnit_Framework_TestCase
 {
@@ -275,7 +275,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test attributes method.
-     * @covers        \Rentalhost\VanillaAxe\Axe::attributes
+     * @covers        \Unite\Axe\Axe::attributes
      * @dataProvider  dataAttributesMethod
      *
      * @param array  $attributes     Attributes.
@@ -288,7 +288,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test basic methods.
-     * @covers \Rentalhost\VanillaAxe\Axe::html
+     * @covers \Unite\Axe\Axe::html
      */
     public function testBasicHTML()
     {
@@ -300,7 +300,7 @@ class AxeTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test basic methods.
-     * @covers \Rentalhost\VanillaAxe\Axe::xml
+     * @covers \Unite\Axe\Axe::xml
      */
     public function testBasicXML()
     {
@@ -312,11 +312,11 @@ class AxeTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test transforms methods.
-     * @covers        \Rentalhost\VanillaAxe\Axe::html
-     * @covers        \Rentalhost\VanillaAxe\Axe::xml
-     * @covers        \Rentalhost\VanillaAxe\Axe::transform
-     * @covers        \Rentalhost\VanillaAxe\Axe::parseTag
-     * @covers        \Rentalhost\VanillaAxe\Axe::isAssociative
+     * @covers        \Unite\Axe\Axe::html
+     * @covers        \Unite\Axe\Axe::xml
+     * @covers        \Unite\Axe\Axe::transform
+     * @covers        \Unite\Axe\Axe::parseTag
+     * @covers        \Unite\Axe\Axe::isAssociative
      *
      * @dataProvider  dataTransformsMethods
      *

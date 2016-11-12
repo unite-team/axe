@@ -1,19 +1,19 @@
 <?php
 
-namespace Rentalhost\VanillaAxe;
+namespace Unite\Axe;
 
 use PHPUnit_Framework_TestCase;
 
 /**
  * Class TransformationTest
- * @package Rentalhost\VanillaAxe
+ * @package Unite\Axe
  */
 class TransformationTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test getDefault() method.
      *
-     * @covers \Rentalhost\VanillaAxe\Transformation::getDefault
+     * @covers \Unite\Axe\Transformation::getDefault
      */
     public function testGetDefault()
     {

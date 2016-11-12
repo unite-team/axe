@@ -1,10 +1,10 @@
 <?php
 
-namespace Rentalhost\VanillaAxe;
+namespace Unite\Axe;
 
 /**
  * Class Axe
- * @package Rentalhost\VanillaAxe
+ * @package Unite\Axe
  */
 class Axe
 {

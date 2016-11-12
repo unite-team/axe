@@ -1,21 +1,21 @@
 {
-    "name": "rentalhost/vanilla-axe",
-    "description": "The vanilla-axe will help you to generate XML/HTML by using arrays.",
+    "name": "unite/axe",
+    "description": "Library that converts an array to a valid XHTML.",
 
     "require-dev": {
-        "phpunit/phpunit": "^5.5"
+        "phpunit/phpunit": "5.*"
     },
 
     "autoload": {
         "psr-4": {
-            "Rentalhost\\VanillaAxe\\": "src/VanillaAxe/"
+            "Unite\\Axe\\": "src"
         }
     },
 
     "authors": [
         {
-            "name": "David Rodrigues",
-            "email": "david.rodrigues@rentalhost.net"
+            "name": "Unite Team",
+            "email": "unite@rentalhost.net"
         }
     ],
     "license": "MIT"
