@@ -129,9 +129,8 @@ class Axe
                 }
 
                 // Capture additional tags.
-                if (!empty($element[0]) &&
-                    static::isAssociative($element[0])
-                ) {
+                while (!empty($element[0]) &&
+                       static::isAssociative($element[0])) {
                     // Force lowercase to attributes names.
                     if ($transformation->forcedLowercase === true) {
                         $element[0] = array_combine(
@@ -140,8 +139,9 @@ class Axe
                         );
                     }
 
-                    $tagAttributes = $element[0] + $tagAttributes;
-                    array_shift($element);
+                    /** @noinspection SlowArrayOperationsInLoopInspection */
+                    // Greedy replace is need here to avoid workaround with boolean.
+                    $tagAttributes = array_replace($tagAttributes, array_shift($element));
                 }
 
                 // Build tag.

@@ -164,6 +164,18 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'html', [ [ '?xml', [ 'data-version' => '1.0' ], 'Hello' ] ], '<div data-version="1.0">Hello</div>' ],
             [ 'html', [ [ '?xml', 'Hello' ] ], '<div>Hello</div>' ],
 
+            // HTML: more attributes definition to element.
+            101400 =>
+                [ 'html', [ [ 'input', [ 'checked' => true ], [ 'readonly' => true ] ] ], '<input checked readonly />' ],
+            [ 'html', [ [ 'input', [ 'value' => '1' ], [ 'value' => '2' ] ] ], '<input value="2" />' ],
+            [
+                'html',
+                [ [ 'div', [ 'data-a' => '1' ], [ 'data-b' => '2' ], 'content' ] ],
+                '<div data-a="1" data-b="2">content</div>'
+            ],
+            [ 'html', [ [ 'input.test1', [ 'class' => 'test2' ] ] ], '<input class="test2" />' ],
+            [ 'html', [ [ 'input.test1', [ 'class' => 'test2' ], [ 'class' => 'test3' ] ] ], '<input class="test3" />' ],
+
             // XML: Literal String.
             200000 =>
                 [ 'xml', [ 'Hello World' ], 'Hello World' ],
@@ -274,6 +286,18 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'xml', [ [ '?test', [ 'version' => '1.0' ] ] ], '<?test version="1.0" ?>' ],
             [ 'xml', [ [ '?xml', [ 'version' => '1.0' ], 'Hello' ] ], '<?xml version="1.0">Hello</?xml>' ],
             [ 'xml', [ [ '?xml', 'Hello' ] ], '<?xml>Hello</?xml>' ],
+
+            // XML: more attributes definition to element.
+            201400 =>
+                [ 'xml', [ [ 'input', [ 'checked' => true ], [ 'readonly' => true ] ] ], '<input checked readonly />' ],
+            [ 'xml', [ [ 'input', [ 'value' => '1' ], [ 'value' => '2' ] ] ], '<input value="2" />' ],
+            [
+                'xml',
+                [ [ 'node', [ 'data-a' => '1' ], [ 'data-b' => '2' ], 'content' ] ],
+                '<node data-a="1" data-b="2">content</node>'
+            ],
+            [ 'xml', [ [ 'input.test1', [ 'class' => 'test2' ] ] ], '<input.test1 class="test2" />' ],
+            [ 'xml', [ [ 'input.test1', [ 'class' => 'test2' ], [ 'class' => 'test3' ] ] ], '<input.test1 class="test3" />' ],
         ];
     }
 
