@@ -97,11 +97,9 @@ class Axe
                     continue;
                 }
 
-                // The first element value is the tag description.
-                unset ($tagName, $tagId, $tagClass);
-
                 $tagAttributes = [];
 
+                // The first element value is the tag description.
                 if ($transformation->advancedParsing) {
                     $tagDescription = array_shift($element);
                     $tagName        = $transformation->tagFallback;
@@ -117,6 +115,8 @@ class Axe
                         if ($tagClass !== null) {
                             $tagAttributes['class'] = $tagClass;
                         }
+
+                        unset ($tagId, $tagClass);
                     }
                 }
                 else {
