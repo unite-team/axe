@@ -38,7 +38,9 @@ class Axe
                 continue;
             }
 
-            if (is_int($attributeKey)) {
+            if (is_int($attributeKey) ||
+                $attributeKey === ''
+            ) {
                 $attributesResult[] = '"' . htmlspecialchars((string) $attributeValue) . '"';
                 continue;
             }

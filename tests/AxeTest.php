@@ -156,6 +156,16 @@ class AxeTest extends PHPUnit_Framework_TestCase
                 ],
                 '<!doctype html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd" />'
             ],
+            [
+                'html',
+                [
+                    [
+                        '!doctype',
+                        [ '' => '-//W3C//DTD HTML 4.01//EN', 'http://www.w3.org/TR/html4/strict.dtd' ]
+                    ]
+                ],
+                '<!doctype "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd" />'
+            ],
 
             // HTML: XML header should not be parsed as valid - so it'll use fallback (div).
             101300 =>
@@ -287,6 +297,16 @@ class AxeTest extends PHPUnit_Framework_TestCase
                     ]
                 ],
                 '<!doctype html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd" />'
+            ],
+            [
+                'xml',
+                [
+                    [
+                        '!doctype',
+                        [ '' => '-//W3C//DTD HTML 4.01//EN', 'http://www.w3.org/TR/html4/strict.dtd' ]
+                    ]
+                ],
+                '<!doctype "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd" />'
             ],
 
             // XML: supports XML header - except if it have contents.
