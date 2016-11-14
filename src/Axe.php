@@ -70,17 +70,14 @@ class Axe
      * Transforms an array of elements based on a Transformation.
      * If a Transformation is not defined, then it'll use a default XML Transformation.
      *
-     * @param string[]              $elements            Elements to transforms.
-     * @param string|Transformation $transformationClass Transformation class reference.
+     * @param string[]       $elements       Elements to transforms.
+     * @param Transformation $transformation Transformation class reference.
      *
      * @return string
      */
-    public static function transform(array $elements, $transformationClass = null): string
+    public static function transform(array $elements, Transformation $transformation): string
     {
-        $result         = '';
-        $transformation = $transformationClass instanceof Transformation
-            ? $transformationClass
-            : self::getTransformation($transformationClass ?: XML::class);
+        $result = '';
 
         /** @var mixed[]|string|mixed $element */
         foreach ($elements as $element) {
