@@ -335,7 +335,6 @@ class AxeTest extends PHPUnit_Framework_TestCase
     /**
      * Test basic methods.
      * @covers \Unite\Axe\Axe::html
-     * @covers \Unite\Axe\Axe::getTransformation
      */
     public function testBasicHTML()
     {

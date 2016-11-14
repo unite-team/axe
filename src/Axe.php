@@ -6,6 +6,7 @@ namespace Unite\Axe;
 
 use Unite\Axe\Transformation\HTML;
 use Unite\Axe\Transformation\Transformation;
+use Unite\Axe\Transformation\TransformationFactory;
 use Unite\Axe\Transformation\XML;
 
 /**
@@ -14,12 +15,6 @@ use Unite\Axe\Transformation\XML;
  */
 class Axe
 {
-    /**
-     * Stores all initialized transformations.
-     * @var Transformation[]
-     */
-    private static $transformationsCache = [];
-
     /**
      * Transforms an array to XHTML attribute.
      *
@@ -63,7 +58,7 @@ class Axe
      */
     public static function html(...$args): string
     {
-        return static::transform($args, self::getTransformation(HTML::class));
+        return static::transform($args, TransformationFactory::get(HTML::class));
     }
 
     /**
@@ -192,25 +187,7 @@ class Axe
      */
     public static function xml(...$args): string
     {
-        return static::transform($args, self::getTransformation(XML::class));
-    }
-
-    /**
-     * Returns a cached version of a Transformation class.
-     *
-     * @param string $transformationClass Transformation class name.
-     *
-     * @return Transformation
-     */
-    private static function getTransformation(string $transformationClass): Transformation
-    {
-        assert(is_subclass_of($transformationClass, Transformation::class));
-
-        if (!array_key_exists($transformationClass, self::$transformationsCache)) {
-            self::$transformationsCache[$transformationClass] = new $transformationClass;
-        }
-
-        return self::$transformationsCache[$transformationClass];
+        return static::transform($args, TransformationFactory::get(XML::class));
     }
 
     /**
