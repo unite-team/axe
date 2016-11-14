@@ -298,6 +298,8 @@ class AxeTest extends PHPUnit_Framework_TestCase
     public function testBasicHTML()
     {
         static::assertSame('hello', Axe::html('hello'));
+        static::assertSame('1', Axe::html(true));
+        static::assertSame('', Axe::html(false));
         static::assertSame('<div></div>', Axe::html([ 'div' ]));
         static::assertSame('<div></div>hello', Axe::html([ 'div' ], 'hello'));
         static::assertSame('<div></div><br />', Axe::html([ 'div' ], [ 'br' ]));

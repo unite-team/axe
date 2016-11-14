@@ -75,7 +75,7 @@ class Axe
      *
      * @return string
      */
-    public static function transform($elements, $transformationClass = null): string
+    public static function transform(array $elements, $transformationClass = null): string
     {
         $result         = '';
         $transformation = $transformationClass instanceof Transformation
@@ -84,12 +84,6 @@ class Axe
 
         /** @var mixed[]|string|mixed $element */
         foreach ($elements as $element) {
-            // Consider a scalar as literal result.
-            // Note: boolean too is a scalar value, true will turns 1 and false will turns empty.
-            if (is_scalar($element)) {
-                $result .= $element;
-            }
-
             // Consider an array as a transformable object.
             if (is_array($element)) {
                 // Ignore empty elements.
@@ -180,7 +174,13 @@ class Axe
                 }
 
                 $result .= "></{$tagName}>";
+                continue;
             }
+
+            // If not a array, then should be scalar or null.
+            // For scalar, just append it as literal.
+            assert(is_scalar($element) || $element === null);
+            $result .= $element;
         }
 
         return $result;
