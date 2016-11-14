@@ -176,6 +176,15 @@ class AxeTest extends PHPUnit_Framework_TestCase
             [ 'html', [ [ 'input.test1', [ 'class' => 'test2' ] ] ], '<input class="test2" />' ],
             [ 'html', [ [ 'input.test1', [ 'class' => 'test2' ], [ 'class' => 'test3' ] ] ], '<input class="test3" />' ],
 
+            // HTML: empty array.
+            101500 =>
+                [ 'html', [], '' ],
+            [ 'html', [ [] ], '' ],
+            [ 'html', [ [ 'div', [] ] ], '<div></div>' ],
+            [ 'html', [ [ 'div', [], [] ] ], '<div></div>' ],
+            [ 'html', [ [ 'div', [], 'content' ] ], '<div>content</div>' ],
+            [ 'html', [ [ 'div', [], 'content', [] ] ], '<div>content</div>' ],
+
             // XML: Literal String.
             200000 =>
                 [ 'xml', [ 'Hello World' ], 'Hello World' ],
@@ -298,6 +307,15 @@ class AxeTest extends PHPUnit_Framework_TestCase
             ],
             [ 'xml', [ [ 'input.test1', [ 'class' => 'test2' ] ] ], '<input.test1 class="test2" />' ],
             [ 'xml', [ [ 'input.test1', [ 'class' => 'test2' ], [ 'class' => 'test3' ] ] ], '<input.test1 class="test3" />' ],
+
+            // HTML: empty array.
+            201500 =>
+                [ 'html', [], '' ],
+            [ 'xml', [ [] ], '' ],
+            [ 'xml', [ [ 'node', [] ] ], '<node />' ],
+            [ 'xml', [ [ 'node', [], [] ] ], '<node />' ],
+            [ 'xml', [ [ 'node', [], 'content' ] ], '<node>content</node>' ],
+            [ 'xml', [ [ 'node', [], 'content', [] ] ], '<node>content</node>' ],
         ];
     }
 
